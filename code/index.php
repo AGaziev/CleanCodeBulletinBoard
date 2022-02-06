@@ -12,3 +12,6 @@ $var1 = 2;
 echo $var1 . "\n";
 $var2 = 323;
 echo $var2;
+$var3 = 2.323;
+echo " " . $var3;
+echo 5+7;
