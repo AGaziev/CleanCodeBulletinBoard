@@ -10,3 +10,5 @@ echo"\nYour order is:$very_bad_unclear_name.";
 echo"\n 2.Числа\n";
 $var1 = 2;
 echo $var1 . "\n";
+$var2 = 323;
+echo $var2;
