@@ -7,3 +7,6 @@ $order = &$very_bad_unclear_name;
 $order .= " qwe";
 //// Don't change the line below
 echo"\nYour order is:$very_bad_unclear_name.";
+echo"\n 2.Числа\n";
+$var1 = 2;
+echo $var1 . "\n";
