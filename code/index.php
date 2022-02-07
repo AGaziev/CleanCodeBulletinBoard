@@ -283,3 +283,10 @@ for($i=0;$i<rand(2,5);$i++)
     echo$arr12[$i] . " ";
 }
 echo (count($arr12)==3) ? "<br>SUM " . array_sum($arr12) : "<br>!=3";
+$xString="";
+echo "<br>";
+for($i=0;$i<20;$i++)
+{
+    echo "$xString<br>";
+    $xString .= "x";
+}
