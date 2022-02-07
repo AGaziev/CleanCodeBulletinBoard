@@ -65,3 +65,14 @@ $arr2 = array(
 );
 foreach ($arr2 as $k => $v)
     echo "$k - $v<br>";
+$arr3=array(
+    4,-2,5,10,-130,0,10
+);
+$minN=$arr3[0];$maxN=$arr3[0];
+foreach($arr3 as $num)
+    echo"$num ";
+    if ($minN > $num)
+        $minN = $num;
+    if ($maxN < $num)
+        $maxN = $num;
+echo"<br>maximum - $maxN , minimum - $minN";
