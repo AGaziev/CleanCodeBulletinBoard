@@ -104,3 +104,25 @@ foreach ($arr5 as &$item) {
 echo "<br>";
 foreach ($arr5 as $item){
     echo $item . " ";}
+$number = rand(30,100);
+echo "<br>OUR NUMBER - $number<br>";
+$arrDivisor = array();
+for ($i = 1;$i <=$number;$i++)
+{
+    if ($number % $i == 0) {
+        array_push($arrDivisor, $i);
+        echo $i . " ";
+    }
+}
+$arr6 = array( 1,2,3,4,5,6,7,8,9,10 );
+$numOfFirst = 0;
+$sum = 0;
+while ($sum <= 10){
+    $sum+=$arr6[$numOfFirst];
+    $numOfFirst++;
+}
+echo "<br> Дан массив 
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. 
+Узнайте, сколько первых элементовмассива нужно сложить, 
+чтобы сумма получилась больше 10. - $numOfFirst";
+
