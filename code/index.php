@@ -76,3 +76,9 @@ foreach($arr3 as $num)
     if ($maxN < $num)
         $maxN = $num;
 echo"<br>maximum - $maxN , minimum - $minN";
+echo "<br>" . rand(1,100) . "<br>";
+$arr4 = array();
+for($i = 0;$i<10;$i++) {
+    array_push($arr4, rand(1, 100));
+    echo "$arr4[$i] ";
+}
