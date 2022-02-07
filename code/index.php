@@ -133,3 +133,44 @@ function printStringReturnNumber()
     return 23;
 }
 echo "<br>" . $my_num = printStringReturnNumber();
+
+echo"<br>16.Функции";
+function increaseEnthusiasm($s = "null")
+{
+    return $s . "!";
+}
+echo "<br>" . increaseEnthusiasm("MySTRING");
+function repeatThreeTimes($s = "null")
+{
+    return $s . $s . $s;
+}
+echo "<br>" . repeatThreeTimes("MySecondString");
+echo "<br>" . increaseEnthusiasm(repeatThreeTimes("MyThirdString"));
+function cut($s = "null", $charsFromStart = 10)
+{
+    return substr($s,0,$charsFromStart);
+}
+echo "<br>" . cut(increaseEnthusiasm(repeatThreeTimes("MyThirdString")),5) . "<br>";
+function printArray($arr,$endIter,$nowIter=0)
+{
+    echo $arr[$nowIter] . " ";
+    if ($nowIter < $endIter){
+        printArray($arr, $endIter, ++$nowIter);
+    }else
+        return;
+}
+printArray($arrDivisor,count($arrDivisor));
+function returnLastSumOfNum($num,$sum=0)
+{
+    while ($num > 0)
+    {
+        $sum+=$num%10;
+        $num/=10;
+    }
+    echo "$sum ";
+    if ($sum>9)
+        returnLastSumOfNum($sum);
+    else return;
+}
+echo"<br>";
+returnLastSumOfNum(rand(100,999));
