@@ -47,3 +47,12 @@ echo "<br>" . ($a%$b);
 if ($a%$b==0)
     echo "<br>Делится<br>";
 else echo "<br>Делится с остатком<br>" . ($a%$b);
+echo $st=pow(2,10) . "<br>";
+echo sqrt(245) . "<br>";
+$arr = array(
+    4,2,5,19,13,0,10
+);
+$sum = 0;
+foreach($arr as $item)
+    $sum+=$item**2;
+echo sqrt($sum) . "<br>";
