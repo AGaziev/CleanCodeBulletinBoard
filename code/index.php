@@ -154,7 +154,7 @@ echo "<br>" . cut(increaseEnthusiasm(repeatThreeTimes("MyThirdString")),5) . "<b
 function printArray($arr,$endIter,$nowIter=0)
 {
     echo $arr[$nowIter] . " ";
-    if ($nowIter < $endIter){
+    if ($nowIter < $endIter-1){
         printArray($arr, $endIter, ++$nowIter);
     }else
         return;
@@ -290,3 +290,45 @@ for($i=0;$i<20;$i++)
     echo "$xString<br>";
     $xString .= "x";
 }
+function averageInArray($arr,$endIter,$nowIter,$sum=0)
+{
+    $sum+=$arr[$nowIter];
+    if ($nowIter < $endIter-1){
+        averageInArray($arr, $endIter, $nowIter+1,$sum);
+    }else
+        echo ($sum/count($arr));
+}
+averageInArray($arr12,count($arr12),0,0);
+function sumFrom1To100($start,$sum)
+{
+    $sum+=$start;
+    if ($start<100){
+        sumFrom1To100($start+1,$sum);
+    }else
+        echo "<br>" . $sum;
+}
+sumFrom1To100(1,0);
+function toSqrt(&$arr,$endIter,$nowIter)
+{
+    $arr[$nowIter] = sqrt($arr[$nowIter]);
+    if ($nowIter < $endIter-1) {
+        toSqrt($arr, $endIter, $nowIter + 1);
+    }
+}
+toSqrt($arr12,count($arr12),0);
+echo"<br>";
+print_r($arr12);
+echo"<br>";
+function arrayFillWithKeys($charNum,&$arr=array())
+{
+    $retArr = $arr;
+    $retArr[chr($charNum+97)]=$charNum+1;
+
+    if ($charNum<26-1)
+        arrayFillWithKeys($charNum+1,$retArr);
+    else print_r($retArr);
+}
+arrayFillWithKeys(0);
+$str = '1234567890';
+$arr13 = str_split($str, 2);
+echo "<br>" . array_sum($arr13);
