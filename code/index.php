@@ -126,3 +126,10 @@ echo "<br> Дан массив
 Узнайте, сколько первых элементовмассива нужно сложить, 
 чтобы сумма получилась больше 10. - $numOfFirst";
 
+echo"<br>15.Функции";
+function printStringReturnNumber()
+{
+    echo "<br>String Printed";
+    return 23;
+}
+echo "<br>" . $my_num = printStringReturnNumber();
