@@ -30,3 +30,13 @@ echo "<br>" . $days_per_language;
 
 echo "<br> 12.Степень<br>";
 echo 8**2;
+
+echo"<br>13.Операторы присваивания<br>";
+$my_num = 22;
+$answer = $my_num;
+$answer += 2;
+$answer *= 2;
+$answer -= 2;
+$answer /= 2;
+$answer -= $my_num;
+echo $answer;
