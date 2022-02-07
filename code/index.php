@@ -40,3 +40,10 @@ $answer -= 2;
 $answer /= 2;
 $answer -= $my_num;
 echo $answer;
+
+echo"<br>14.Математические функции";
+$a = 10; $b=3;
+echo "<br>" . ($a%$b);
+if ($a%$b==0)
+    echo "<br>Делится<br>";
+else echo "<br>Делится с остатком<br>" . ($a%$b);
