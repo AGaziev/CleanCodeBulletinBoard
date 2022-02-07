@@ -69,12 +69,12 @@ $arr3=array(
     4,-2,5,10,-130,0,10
 );
 $minN=$arr3[0];$maxN=$arr3[0];
-foreach($arr3 as $num)
+foreach($arr3 as $num){
     echo"$num ";
     if ($minN > $num)
         $minN = $num;
     if ($maxN < $num)
-        $maxN = $num;
+        $maxN = $num;}
 echo"<br>maximum - $maxN , minimum - $minN";
 echo "<br>" . rand(1,100) . "<br>";
 $arr4 = array();
@@ -82,3 +82,25 @@ for($i = 0;$i<10;$i++) {
     array_push($arr4, rand(1, 100));
     echo "$arr4[$i] ";
 }
+for($i = 0; $i < 5;$i++)
+{
+    $a=rand(-100,100);
+    $b=rand(-100,100);
+    echo "<br>a-b=$a-$b=|" . ($a-$b) . "|=" . abs($a-$b);
+}
+$arr5 = array(
+    rand(-100,100),
+    rand(-100,100),
+    rand(-100,100),
+    rand(-100,100),
+    rand(-100,100),
+    rand(-100,100)
+);
+echo "<br>";
+foreach ($arr5 as &$item) {
+    echo $item . " ";
+    $item = abs($item);
+}
+echo "<br>";
+foreach ($arr5 as $item){
+    echo $item . " ";}
