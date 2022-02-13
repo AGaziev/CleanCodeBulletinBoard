@@ -90,3 +90,32 @@ if ($_POST['sendToSession']) {
     }
 }
 ?>
+    <body>
+    <form method="POST">
+        <label>
+            NAME<input type="text" name="nameV2" required><br>
+            SURNAME<input type="text" name="surnameV2" required><br>
+            SALARY<input type="number" name="salaryV2" required><br>
+            MARITAL STATUS
+            <select name="status" required>
+                <option>SINGLE</option>
+                <option>MARRIED</option>
+                <option>DIVORCED</option>
+                <option>WIDOW(ER)</option>
+            </select><br>
+            <input type="submit" value="Записать в сессию" name="sendToSessionArray"><br>
+        </label>
+        <a href="UserInfo.php">К информации пользователя</a>
+    </form>
+    </body>
+<?php
+if ($_POST['sendToSessionArray']) {
+    if ($_POST['nameV2'] && $_POST['surnameV2'] && $_POST['salaryV2'] && $_POST['status']) {
+        $_SESSION['userInfo'] = array('name' => $_POST['nameV2'],
+            'surname' => $_POST['surnameV2'],
+            'salary' => $_POST['salaryV2'],
+            'status' => $_POST['status']
+        );
+    }
+}
+?>
