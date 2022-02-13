@@ -4,6 +4,11 @@ echo "User Info:<br>
 NAME: {$_SESSION['name']}<br>
 SURNAME: {$_SESSION['surname']}<br>
 AGE: {$_SESSION['age']}<br>";
+echo "User Info From Array:<br>
+NAME: {$_SESSION['userInfo']['name']}<br>
+SURNAME: {$_SESSION['userInfo']['surname']}<br>
+SALARY: {$_SESSION['userInfo']['salary']}<br>
+MARITAL STATUS: {$_SESSION['userInfo']['status']}<br>";
 ?>
 <!doctype html>
 <html lang="en">
