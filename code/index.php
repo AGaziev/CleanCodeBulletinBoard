@@ -55,4 +55,16 @@ echo "2.Форма. Сессии и Куки<br>";
 </body>
 </html>
 <?php
+if ($_POST['getWordsAndSyms']) {
+    if ($_POST['textToParse']) {
+        $_SESSION['textInfo'] = str_word_count($_POST['textToParse'],
+                0, 'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя') . ' слов<br>';
+        // чтобы русские символы тоже считывал
+        $_SESSION['textInfo'] .= strlen($_POST['textToParse']) . ' символов<br>';
+        // не знаю почему, но русский символ он считывает за два
+    } else {
+        $_SESSION['textInfo'] = 'Текста нет...';
+    }
+}
+echo $_SESSION['textInfo'];
 ?>
