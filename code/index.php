@@ -93,7 +93,7 @@ if ($_POST['sendToSession']) {
     <body>
     <form method="POST">
         <label>
-            NAME<input type="text" name="nameV2" required><br>
+            NAME<input type="text" name="nameV2" required value="ssss"><br>
             SURNAME<input type="text" name="surnameV2" required><br>
             SALARY<input type="number" name="salaryV2" required><br>
             MARITAL STATUS

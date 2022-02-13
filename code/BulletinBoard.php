@@ -1,10 +1,3 @@
-<?php
-session_start();
-echo "User Info:<br>
-NAME: {$_SESSION['name']}<br>
-SURNAME: {$_SESSION['surname']}<br>
-AGE: {$_SESSION['age']}<br>";
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,13 +8,6 @@ AGE: {$_SESSION['age']}<br>";
     <title>Document</title>
 </head>
 <body>
-<ul>
-    <?php
-    foreach ($_SESSION['userInfo'] as $key => $value) {
-        echo "<li>$key : $value</li>";
-}
-    ?>
-</ul>
-<a href="index.php">НАЗАД</a>
+
 </body>
 </html>
