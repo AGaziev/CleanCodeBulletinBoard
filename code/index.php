@@ -1,4 +1,5 @@
 <?php
+session_start();
 /*
  * 1.Регулярные выражения.Напишите регулярку, которая найдет строки
  * 'abba', 'adca','abea' по шаблону:буква 'a',двалюбыхсимвола,буква 'b'.
@@ -31,3 +32,27 @@ $result = preg_replace_callback(
 echo $result . '<br>';
 
 
+echo "2.Форма. Сессии и Куки<br>";
+?>
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="US-ASCII">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Регулярные выражение и работа с файлами</title>
+</head>
+<body>
+<form method="POST">
+    <label>
+<textarea name="textToParse"
+          placeholder="Введите текст в котором необходимо узнать количество слов и символов"
+          rows="5" cols="40"></textarea>
+    </label>
+    <input type="submit" name="getWordsAndSyms" value="Обработать текст">
+</form>
+</body>
+</html>
+<?php
+?>
