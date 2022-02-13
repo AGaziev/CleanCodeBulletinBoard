@@ -106,6 +106,7 @@ if ($_POST['sendToSession']) {
             <input type="submit" value="Записать в сессию" name="sendToSessionArray"><br>
         </label>
         <a href="UserInfo.php">К информации пользователя</a>
+        <a href="BulletinBoard.php">На доску объявлений</a>
     </form>
     </body>
 <?php
