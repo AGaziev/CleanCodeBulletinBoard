@@ -1,5 +1,16 @@
 <?php
-session_start()
+session_start();
+require_once "../vendor/autoload.php";
+
+$client = new Google_Client();
+$client->setApplicationName('WEB Lab 4');
+$client->setScopes(Google\Service\Sheets::SPREADSHEETS);
+$client->setDeveloperKey("AIzaSyAA52f3qn-QU6WzJR9X_1TETqPkq8J2fWk");
+putenv('GOOGLE_APPLICATION_CREDENTIALS=../credentials.json');
+$client->useApplicationDefaultCredentials();
+
+$service = new Google\Service\Sheets($client);
+$sheetId = '1RAs9jimcz3mtS-77unap8ybKAwLp1ABVpeHf8hbreeM';
 ?>
 <!doctype html>
 <html lang="en">
@@ -53,6 +64,7 @@ session_start()
 </body>
 </html>
 <?php
+//////////////////////////NO USE
 function DetectCopiesOfHeaders($name, $category): string
 {
     $copies = 0;
@@ -69,10 +81,13 @@ if ($_POST['start']) {
     $_SESSION['categoryToShow'] = $_POST['categorySelect'];
 }
 if ($_POST['PostNew']) {
-    $copyPostfix = DetectCopiesOfHeaders($_POST['headingNew'], $_POST['categoryNew']);
-    $newPost = fopen("{$_POST['categoryNew']}/{$_POST['headingNew']}$copyPostfix.txt", 'w');
-    fputs($newPost, "{{$_POST['emailNew']}}\n{{{$_POST['headingNew']}}}\n{$_POST['textNew']}");
-    fclose($newPost);
+    ///////////////////////////FILE KEEPING SYSTEM/////////////////////////////////
+    //$copyPostfix = DetectCopiesOfHeaders($_POST['headingNew'], $_POST['categoryNew']);
+    //$newPost = fopen("{$_POST['categoryNew']}/{$_POST['headingNew']}$copyPostfix.txt", 'w');
+    //fputs($newPost, "{{$_POST['emailNew']}}\n{{{$_POST['headingNew']}}}\n{$_POST['textNew']}");
+    //fclose($newPost);
+    ///////////////////////GOOGLE SHEET KEEPING SYSTEM/////////////////////////////
+    
 }
 ?>
 <body>

@@ -1,0 +1,17 @@
+{
+    "name": "alang/alan-gaziev-bf-uweb",
+    "autoload": {
+        "psr-4": {
+            "Alang\\AlanGazievBfUweb\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alan Gaziev",
+            "email": "agaziev@stud.kantiana.ru"
+        }
+    ],
+    "require": {
+        "google/apiclient": "2.0"
+    }
+}
