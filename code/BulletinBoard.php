@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once "../vendor/autoload.php";
+require __DIR__ . '/vendor/autoload.php';
 
 $client = new Google_Client();
-$client->setApplicationName('WEB Lab 4');
+$client->setApplicationName('WEBLab4');
 $client->setScopes(Google\Service\Sheets::SPREADSHEETS);
 $client->setDeveloperKey("AIzaSyAA52f3qn-QU6WzJR9X_1TETqPkq8J2fWk");
-putenv('GOOGLE_APPLICATION_CREDENTIALS=../credentials.json');
+putenv('GOOGLE_APPLICATION_CREDENTIALS=credentials.json');
 $client->useApplicationDefaultCredentials();
 
 $service = new Google\Service\Sheets($client);
@@ -77,6 +77,7 @@ function DetectCopiesOfHeaders($name, $category): string
     return "($copies)";
 }
 
+///////////////////////
 if ($_POST['start']) {
     $_SESSION['categoryToShow'] = $_POST['categorySelect'];
 }
@@ -87,7 +88,17 @@ if ($_POST['PostNew']) {
     //fputs($newPost, "{{$_POST['emailNew']}}\n{{{$_POST['headingNew']}}}\n{$_POST['textNew']}");
     //fclose($newPost);
     ///////////////////////GOOGLE SHEET KEEPING SYSTEM/////////////////////////////
-    
+    $insertRange = 'BulletinBoard!A:D';
+    $values = [
+        [$_POST['headingNew'], $_POST['emailNew'], $_POST['categoryNew'], $_POST['textNew']]
+    ];
+    $body = new Google_Service_Sheets_ValueRange([
+        'values' => $values
+    ]);
+    $params = [
+        'valueInputOption' => "RAW"
+    ];
+    $result = $service->spreadsheets_values->append($sheetId, $insertRange, $body, $params);
 }
 ?>
 <body>
@@ -96,21 +107,31 @@ if ($_POST['PostNew']) {
         <table>
             <tbody>
             <?php
-            foreach (scandir("{$_SESSION['categoryToShow']}") as $file) {
-                if (preg_match('/.+\.txt$/', $file)) { //REGEX FOR FILES LIKE text.txt
-                    $post = [];
-                    preg_match('/\{(.+@.+)\}[\n]\{\{(.+)\}\}[\n](.+)/s', //regex for pattern {author} \n {header} \n {text}
-                        file_get_contents("{$_SESSION['categoryToShow']}/$file"),
-                        $post);
+            $params = [
+                'majorDimension' => 'COLUMNS'
+            ];
+
+            $sheetOut = $service->spreadsheets_values->get($sheetId, 'BulletinBoard', $params)->getValues();
+
+            $bulletinHeadings = $sheetOut[0];
+            $bulletinAuthors = $sheetOut[1];
+            $bulletinCategories = $sheetOut[2];
+            $bulletinTexts = $sheetOut[3];
+
+            echo '<table border="1">';
+            for ($adId = count($sheetOut[0]); $adId > 0; $adId--) {
+                if ($bulletinCategories[$adId] == $_SESSION['categoryToShow']) {
+                    $adNumber = count($sheetOut[0])-$adId;
                     echo <<<HEREDOC
                     <tr>
-                        <th>Автор:$post[1]</th>
+                        <td rowspan="3">$adNumber</td>
+                        <th style="background-color:green;">Автор:$bulletinAuthors[$adId]</th>
                     </tr>
                     <tr>
-                        <th>$post[2]</th>
+                        <th>$bulletinHeadings[$adId]</th>
                     </tr>
                     <tr>
-                        <td>$post[3]</td>
+                        <td>$bulletinTexts[$adId]</td>
                     </tr>
                     HEREDOC;
 
