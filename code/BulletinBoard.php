@@ -104,7 +104,7 @@ if ($_POST['PostNew']) {
 <body>
 <form>
     <label>
-        <table>
+        <table border="1" width="60%">
             <tbody>
             <?php
             $params = [
@@ -116,12 +116,13 @@ if ($_POST['PostNew']) {
             $bulletinAuthors = $sheetOut[1];
             $bulletinCategories = $sheetOut[2];
             $bulletinTexts = $sheetOut[3];
-            echo count($sheetOut);
             for ($adId = count($sheetOut[0]); $adId > 0; $adId--) {
                 if ($bulletinCategories[$adId] == $_SESSION['categoryToShow']) {
+                    $numOfAd = count($sheetOut[0])-$adId;
                     echo <<<HEREDOC
                     <tr>
-                        <th>Автор:$bulletinAuthors[$adId]</th>
+                        <td rowspan="3">$numOfAd</td>
+                        <th bgcolor="#deb887">Автор: $bulletinAuthors[$adId]</th>
                     </tr>
                     <tr>
                         <th>$bulletinHeadings[$adId]</th>
