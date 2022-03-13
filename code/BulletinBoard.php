@@ -110,8 +110,8 @@ if ($_POST['PostNew']) {
             $params = [
                     'majorDimension' => 'COLUMNS'
             ];
-
-            $sheetOut = $service->spreadsheets_values->get($sheetId,'BulletinBoard', $params)->getValues();
+            $sheetOut = $service->spreadsheets_values->get($sheetId,'BulletinBoard', $params);
+            $sheetOut = $sheetOut->getValues();
             $bulletinHeadings = $sheetOut[0];
             $bulletinAuthors = $sheetOut[1];
             $bulletinCategories = $sheetOut[2];
