@@ -3,7 +3,7 @@ session_start();
 require __DIR__ . '/vendor/autoload.php';
 
 $client = new Google_Client();
-$client->setApplicationName('WEBLab4');
+$client->setApplicationName('WEB Lab 4');
 $client->setScopes(Google\Service\Sheets::SPREADSHEETS);
 $client->setDeveloperKey("AIzaSyAA52f3qn-QU6WzJR9X_1TETqPkq8J2fWk");
 putenv('GOOGLE_APPLICATION_CREDENTIALS=credentials.json');
@@ -108,24 +108,20 @@ if ($_POST['PostNew']) {
             <tbody>
             <?php
             $params = [
-                'majorDimension' => 'COLUMNS'
+                    'majorDimension' => 'COLUMNS'
             ];
 
-            $sheetOut = $service->spreadsheets_values->get($sheetId, 'BulletinBoard', $params)->getValues();
-
+            $sheetOut = $service->spreadsheets_values->get($sheetId,'BulletinBoard', $params)->getValues();
             $bulletinHeadings = $sheetOut[0];
             $bulletinAuthors = $sheetOut[1];
             $bulletinCategories = $sheetOut[2];
             $bulletinTexts = $sheetOut[3];
-
-            echo '<table border="1">';
+            echo count($sheetOut);
             for ($adId = count($sheetOut[0]); $adId > 0; $adId--) {
                 if ($bulletinCategories[$adId] == $_SESSION['categoryToShow']) {
-                    $adNumber = count($sheetOut[0])-$adId;
                     echo <<<HEREDOC
                     <tr>
-                        <td rowspan="3">$adNumber</td>
-                        <th style="background-color:green;">Автор:$bulletinAuthors[$adId]</th>
+                        <th>Автор:$bulletinAuthors[$adId]</th>
                     </tr>
                     <tr>
                         <th>$bulletinHeadings[$adId]</th>
