@@ -1,13 +1,17 @@
 <?php
 session_start();
-require __DIR__ . '/vendor/autoload.php';
 
-$client = new Google_Client();
+/////////////////////GOOGLE SHIT API SETUP/////////////////
+/*$client = new Google_Client();
 $client->setApplicationName('WEB Lab 4');
 $client->setScopes(Google\Service\Sheets::SPREADSHEETS);
 $client->setDeveloperKey("AIzaSyAA52f3qn-QU6WzJR9X_1TETqPkq8J2fWk");
 putenv('GOOGLE_APPLICATION_CREDENTIALS=credentials.json');
-$client->useApplicationDefaultCredentials();
+$client->useApplicationDefaultCredentials();*/
+
+/*$service = new Google\Service\Sheets($client);
+$sheetId = '1RAs9jimcz3mtS-77unap8ybKAwLp1ABVpeHf8hbreeM';*/
+///////////////////////////////////////////////////////////
 
 $service = new Google\Service\Sheets($client);
 $sheetId = '1RAs9jimcz3mtS-77unap8ybKAwLp1ABVpeHf8hbreeM';
@@ -64,20 +68,6 @@ $sheetId = '1RAs9jimcz3mtS-77unap8ybKAwLp1ABVpeHf8hbreeM';
 </body>
 </html>
 <?php
-//////////////////////////NO USE
-function DetectCopiesOfHeaders($name, $category): string
-{
-    $copies = 0;
-    foreach (scandir("$category") as $file) {
-        if (preg_match('/^' . $name . '[\(\d\)]*\.txt/', $file)) //REGEX FOR COPIES OF FILES LIKE name.txt name(1).txt name(2).txt
-            $copies++;
-    }
-    if ($copies == 0)
-        return "";
-    return "($copies)";
-}
-
-///////////////////////
 if ($_POST['start']) {
     $_SESSION['categoryToShow'] = $_POST['categorySelect'];
 }
@@ -88,9 +78,20 @@ if ($_POST['PostNew']) {
     //fputs($newPost, "{{$_POST['emailNew']}}\n{{{$_POST['headingNew']}}}\n{$_POST['textNew']}");
     //fclose($newPost);
     ///////////////////////GOOGLE SHEET KEEPING SYSTEM/////////////////////////////
-    $insertRange = 'BulletinBoard!A:D';
+    //$insertRange = 'BulletinBoard!A:D';
+    //$values = [
+    //    [$_POST['headingNew'], $_POST['emailNew'], $_POST['categoryNew'], $_POST['textNew']]
+    //];
+    //$body = new Google_Service_Sheets_ValueRange([
+    //    'values' => $values
+    //]);
+    //$params = [
+    //    'valueInputOption' => "RAW"
+    //];
+    //$result = $service->spreadsheets_values->append($sheetId, $insertRange, $body, $params);
+    ////////////////////////DATABASE KEEPING SYSTEM///////////////////////////////
     $values = [
-        [$_POST['headingNew'], $_POST['emailNew'], $_POST['categoryNew'], $_POST['textNew']]
+        $_POST['emailNew'], $_POST['headingNew'], $_POST['textNew'], $_POST['categoryNew']
     ];
     $body = new Google_Service_Sheets_ValueRange([
         'values' => $values
@@ -131,8 +132,6 @@ if ($_POST['PostNew']) {
                         <td>$bulletinTexts[$adId]</td>
                     </tr>
                     HEREDOC;
-
-                }
             }
             ?>
             </tbody>
