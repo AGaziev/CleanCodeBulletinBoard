@@ -34,11 +34,6 @@ if (mysqli_connect_errno()) {
     <label>
         Your e-mail:<br>
         <input type="email" name="emailNew"
-               value="<?php
-               if (isset($_SESSION["userEmail"]))
-                   echo $_SESSION["userEmail"];
-               else
-                   echo ""; ?>"
                size="30" maxlength="30" required><br>
         Category:<br>
         <select name="categoryNew" required>
@@ -94,10 +89,10 @@ if ($_POST['PostNew']) {
     //];
     //$result = $service->spreadsheets_values->append($sheetId, $insertRange, $body, $params);
     ////////////////////////DATABASE KEEPING SYSTEM///////////////////////////////
-    $values = [
-        $_POST['emailNew'], $_POST['headingNew'], $_POST['textNew'], $_POST['categoryNew']
-    ];
-    $bulletinDB->query("INSERT INTO boardAD(email,heading,text,category) VALUES({$values})");
+    /*$values = (
+    $_POST['emailNew'], $_POST['headingNew'], $_POST['textNew'], $_POST['categoryNew']
+    );*/
+    $bulletinDB->query("INSERT INTO boardAD(email,heading,text,category) VALUES('{$_POST["emailNew"]}', '{$_POST["headingNew"]}', '{$_POST["textNew"]}', '{$_POST["categoryNew"]}')");
 
 }
 ?>
@@ -117,9 +112,9 @@ if ($_POST['PostNew']) {
             $bulletinCategories = $sheetOut[2];
             $bulletinTexts = $sheetOut[3];*/
 
-            $ads = $bulletinDB->query('SELECT * FROM boardAD WHERE = $_SESSION["categoryToShow"] ORDERED BY created DESC');
-            while( $row = $ads->fetch_assoc()){
-                    echo <<<HEREDOC
+            $ads = $bulletinDB->query("SELECT * FROM boardAD WHERE category = '{$_SESSION['categoryToShow']}'");
+            while ($row = $ads->fetch_assoc()) {
+                echo <<<HEREDOC
                     <tr>
                         <td rowspan="3">{$row['created']}</td>
                         <th bgcolor="#deb887">Автор: {$row['email']}</th>
