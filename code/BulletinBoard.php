@@ -13,8 +13,12 @@ $client->useApplicationDefaultCredentials();*/
 $sheetId = '1RAs9jimcz3mtS-77unap8ybKAwLp1ABVpeHf8hbreeM';*/
 ///////////////////////////////////////////////////////////
 
-$service = new Google\Service\Sheets($client);
-$sheetId = '1RAs9jimcz3mtS-77unap8ybKAwLp1ABVpeHf8hbreeM';
+$bulletinDB = new mysqli('db', 'root', 'qwerta123', 'bulletinDB');
+
+if (mysqli_connect_errno()) {
+    printf('Подключение к серверу MySQL невозможно. Код ошибки ', mysqli_connect_error());
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -93,13 +97,8 @@ if ($_POST['PostNew']) {
     $values = [
         $_POST['emailNew'], $_POST['headingNew'], $_POST['textNew'], $_POST['categoryNew']
     ];
-    $body = new Google_Service_Sheets_ValueRange([
-        'values' => $values
-    ]);
-    $params = [
-        'valueInputOption' => "RAW"
-    ];
-    $result = $service->spreadsheets_values->append($sheetId, $insertRange, $body, $params);
+    $bulletinDB->query("INSERT INTO boardAD(email,heading,text,category) VALUES({$values})");
+
 }
 ?>
 <body>
@@ -108,7 +107,7 @@ if ($_POST['PostNew']) {
         <table border="1" width="60%">
             <tbody>
             <?php
-            $params = [
+            /*$params = [
                     'majorDimension' => 'COLUMNS'
             ];
             $sheetOut = $service->spreadsheets_values->get($sheetId,'BulletinBoard', $params);
@@ -116,20 +115,20 @@ if ($_POST['PostNew']) {
             $bulletinHeadings = $sheetOut[0];
             $bulletinAuthors = $sheetOut[1];
             $bulletinCategories = $sheetOut[2];
-            $bulletinTexts = $sheetOut[3];
-            for ($adId = count($sheetOut[0]); $adId > 0; $adId--) {
-                if ($bulletinCategories[$adId] == $_SESSION['categoryToShow']) {
-                    $numOfAd = count($sheetOut[0])-$adId;
+            $bulletinTexts = $sheetOut[3];*/
+
+            $ads = $bulletinDB->query('SELECT * FROM boardAD WHERE = $_SESSION["categoryToShow"] ORDERED BY created DESC');
+            while( $row = $ads->fetch_assoc()){
                     echo <<<HEREDOC
                     <tr>
-                        <td rowspan="3">$numOfAd</td>
-                        <th bgcolor="#deb887">Автор: $bulletinAuthors[$adId]</th>
+                        <td rowspan="3">{$row['created']}</td>
+                        <th bgcolor="#deb887">Автор: {$row['email']}</th>
                     </tr>
                     <tr>
-                        <th>$bulletinHeadings[$adId]</th>
+                        <th>{$row['heading']}</th>
                     </tr>
                     <tr>
-                        <td>$bulletinTexts[$adId]</td>
+                        <td>{$row['text']}</td>
                     </tr>
                     HEREDOC;
             }
