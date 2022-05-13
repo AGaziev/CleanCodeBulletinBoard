@@ -1,18 +1,6 @@
 <?php
 session_start();
 
-/////////////////////GOOGLE SHIT API SETUP/////////////////
-/*$client = new Google_Client();
-$client->setApplicationName('WEB Lab 4');
-$client->setScopes(Google\Service\Sheets::SPREADSHEETS);
-$client->setDeveloperKey("AIzaSyAA52f3qn-QU6WzJR9X_1TETqPkq8J2fWk");
-putenv('GOOGLE_APPLICATION_CREDENTIALS=credentials.json');
-$client->useApplicationDefaultCredentials();*/
-
-/*$service = new Google\Service\Sheets($client);
-$sheetId = '1RAs9jimcz3mtS-77unap8ybKAwLp1ABVpeHf8hbreeM';*/
-///////////////////////////////////////////////////////////
-
 $bulletinDB = new mysqli('db', 'root', 'qwerta123', 'bulletinDB');
 
 if (mysqli_connect_errno()) {
@@ -71,27 +59,6 @@ if ($_POST['start']) {
     $_SESSION['categoryToShow'] = $_POST['categorySelect'];
 }
 if ($_POST['PostNew']) {
-    ///////////////////////////FILE KEEPING SYSTEM/////////////////////////////////
-    //$copyPostfix = DetectCopiesOfHeaders($_POST['headingNew'], $_POST['categoryNew']);
-    //$newPost = fopen("{$_POST['categoryNew']}/{$_POST['headingNew']}$copyPostfix.txt", 'w');
-    //fputs($newPost, "{{$_POST['emailNew']}}\n{{{$_POST['headingNew']}}}\n{$_POST['textNew']}");
-    //fclose($newPost);
-    ///////////////////////GOOGLE SHEET KEEPING SYSTEM/////////////////////////////
-    //$insertRange = 'BulletinBoard!A:D';
-    //$values = [
-    //    [$_POST['headingNew'], $_POST['emailNew'], $_POST['categoryNew'], $_POST['textNew']]
-    //];
-    //$body = new Google_Service_Sheets_ValueRange([
-    //    'values' => $values
-    //]);
-    //$params = [
-    //    'valueInputOption' => "RAW"
-    //];
-    //$result = $service->spreadsheets_values->append($sheetId, $insertRange, $body, $params);
-    ////////////////////////DATABASE KEEPING SYSTEM///////////////////////////////
-    /*$values = (
-    $_POST['emailNew'], $_POST['headingNew'], $_POST['textNew'], $_POST['categoryNew']
-    );*/
     $bulletinDB->query("INSERT INTO boardAD(email,heading,text,category) VALUES('{$_POST["emailNew"]}', '{$_POST["headingNew"]}', '{$_POST["textNew"]}', '{$_POST["categoryNew"]}')");
 
 }
@@ -102,15 +69,6 @@ if ($_POST['PostNew']) {
         <table border="1" width="60%">
             <tbody>
             <?php
-            /*$params = [
-                    'majorDimension' => 'COLUMNS'
-            ];
-            $sheetOut = $service->spreadsheets_values->get($sheetId,'BulletinBoard', $params);
-            $sheetOut = $sheetOut->getValues();
-            $bulletinHeadings = $sheetOut[0];
-            $bulletinAuthors = $sheetOut[1];
-            $bulletinCategories = $sheetOut[2];
-            $bulletinTexts = $sheetOut[3];*/
 
             $ads = $bulletinDB->query("SELECT * FROM boardAD WHERE category = '{$_SESSION['categoryToShow']}'");
             while ($row = $ads->fetch_assoc()) {
