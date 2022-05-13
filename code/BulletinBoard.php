@@ -1,12 +1,7 @@
 <?php
+include 'controllers/bulletinController.php';
 session_start();
 
-$bulletinDB = new mysqli('db', 'root', 'qwerta123', 'bulletinDB');
-
-if (mysqli_connect_errno()) {
-    printf('Подключение к серверу MySQL невозможно. Код ошибки ', mysqli_connect_error());
-    exit;
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -20,16 +15,9 @@ if (mysqli_connect_errno()) {
 <body>
 <form method="post">
     <label>
-        Your e-mail:<br>
-        <input type="email" name="emailNew"
-               size="30" maxlength="30" required><br>
         Category:<br>
         <select name="categoryNew" required>
-            <option>Sport</option>
-            <option>IT</option>
-            <option>Auto</option>
-            <option>Science</option>
-            <option>Animals</option>
+            <?php echo getCategoriesSelector()?>
         </select><br>
         Heading:<br>
         <input type="text" name="headingNew" value="" size="30" maxlength="30" required><br>
@@ -43,11 +31,7 @@ if (mysqli_connect_errno()) {
     Choose category to show:
     <label>
         <select name="categorySelect" required>
-            <option>Sport</option>
-            <option>IT</option>
-            <option>Auto</option>
-            <option>Science</option>
-            <option>Animals</option>
+            <?php echo getCategoriesSelector()?>
         </select>
     </label><br>
     <input type="submit" name="start" value="SHOW">
@@ -55,39 +39,13 @@ if (mysqli_connect_errno()) {
 </body>
 </html>
 <?php
-if ($_POST['start']) {
-    $_SESSION['categoryToShow'] = $_POST['categorySelect'];
-}
-if ($_POST['PostNew']) {
-    $bulletinDB->query("INSERT INTO boardAD(email,heading,text,category) VALUES('{$_POST["emailNew"]}', '{$_POST["headingNew"]}', '{$_POST["textNew"]}', '{$_POST["categoryNew"]}')");
-
-}
+if (isset($_POST['start']))
+    categoryToShowSet();
+if (isset($_POST['PostNew']))
+    postNewBulletin();
 ?>
-<body>
-<form>
-    <label>
-        <table border="1" width="60%">
-            <tbody>
-            <?php
-
-            $ads = $bulletinDB->query("SELECT * FROM boardAD WHERE category = '{$_SESSION['categoryToShow']}'");
-            while ($row = $ads->fetch_assoc()) {
-                echo <<<HEREDOC
-                    <tr>
-                        <td rowspan="3">{$row['created']}</td>
-                        <th bgcolor="#deb887">Автор: {$row['email']}</th>
-                    </tr>
-                    <tr>
-                        <th>{$row['heading']}</th>
-                    </tr>
-                    <tr>
-                        <td>{$row['text']}</td>
-                    </tr>
-                    HEREDOC;
-            }
-            ?>
-            </tbody>
-        </table>
-    </label>
-</form>
-</body>
+<table border="1" width="60%">
+    <tbody>
+<?php showBoard();?>
+    </tbody>
+</table>

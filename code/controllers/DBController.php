@@ -1,5 +1,5 @@
 <?php
-
+include_once 'BulletinInfo.php';
 $db = new mysqli('db', 'root', 'qwerta123', 'bulletinDB');
 
 if (mysqli_connect_errno()) {
@@ -14,14 +14,26 @@ function getUsersFromDB(): mysqli_result
     return $db->query($query);
 }
 
-function getAdsFromDB(): mysqli_result
+function getAdsFromDB(string $category): mysqli_result
 {
-
+    global $db;
+    $query = "select * from boardAD where category = '{$category}'";
+    return $db->query($query);
 }
 
 function addUserToDB(string $email, string $hashedPass)
 {
     global $db;
     $query = "insert into user(email,password) values('{$email}', '{$hashedPass}')";
+    $db->query($query);
+}
+
+function addNewBulletinToDB(BulletinInfo $bulletin)
+{
+    global $db;
+    $query = "insert into boardAD(email,heading,text,category) values('{$bulletin->getEmail()}',
+                                                                      '{$bulletin->getHeading()}',
+                                                                      '{$bulletin->getText()}',
+                                                                      '{$bulletin->getCategory()}')";
     $db->query($query);
 }

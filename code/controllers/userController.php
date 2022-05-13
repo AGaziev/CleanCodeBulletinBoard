@@ -82,3 +82,11 @@ function checkInput():bool
         return True;
 }
 
+function getCurrentUserEmail()
+{
+    if (isset($_SESSION['email']))
+        return $_SESSION['email'];
+    else
+        return 'GUEST';
+}
+

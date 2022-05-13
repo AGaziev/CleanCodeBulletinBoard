@@ -13,10 +13,12 @@ include "controllers/userController.php";
             <p>
                 <input type="password" name="password" required>
             </p>
-            <button onclick="register()">Зарегестрироваться</button>
+            <input type="submit" name='register' value="Зарегистрироваться">
             <a href="index.php">На главную</a>
         </label>
     </form>
     </body>
 <?php
+if ($_POST['register'])
+    register();
 ?>
