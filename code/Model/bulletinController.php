@@ -1,5 +1,5 @@
 <?php
-include_once 'BulletinInfo.php';
+include_once 'Bulletin.php';
 include 'DBController.php';
 
 $categories = ['Sport', 'Animal', 'IT', 'Auto', 'Science'];

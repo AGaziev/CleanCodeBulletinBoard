@@ -7,7 +7,7 @@ function login()
 {
     if (userAuthorization($_POST['email'], $_POST['password']) and checkInput()) {
         $_SESSION['email'] = $_POST['email'];
-        echo('Успешный вход <br><a href="BulletinBoard.php">перейти на доску объявлений</a>');
+        echo('Успешный вход <br><a href="View/BulletinBoard.php">перейти на доску объявлений</a>');
     } else {
         echo('Пользователь с таким email и паролем не зарегистрирован');
     }

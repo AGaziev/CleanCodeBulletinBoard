@@ -1,6 +1,8 @@
 <?php
 
-class BulletinInfo
+namespace Object;
+
+class Bulletin
 {
     private string $email = 'NONE', $heading = 'NONE', $text = 'NONE', $category = 'NONE', $date = 'NONE';
 

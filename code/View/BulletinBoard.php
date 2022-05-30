@@ -1,5 +1,5 @@
 <?php
-include 'controllers/bulletinController.php';
+include '../Controllers/bulletinController.php';
 session_start();
 
 ?>

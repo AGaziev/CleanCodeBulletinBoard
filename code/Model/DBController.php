@@ -1,5 +1,5 @@
 <?php
-include_once 'BulletinInfo.php';
+include_once 'Bulletin.php';
 $db = new mysqli('db', 'root', 'qwerta123', 'bulletinDB');
 
 if (mysqli_connect_errno()) {

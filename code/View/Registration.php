@@ -1,5 +1,5 @@
 <?php
-include "controllers/userController.php";
+include "../Controllers/userController.php";
 ?>
     <body>
     </label>

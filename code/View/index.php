@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'controllers/userController.php'
+include '../Controllers/userController.php'
 ?>
     <body>
     <label>
