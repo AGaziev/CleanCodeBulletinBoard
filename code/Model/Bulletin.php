@@ -4,7 +4,7 @@ namespace Object;
 
 class Bulletin
 {
-    private string $email = 'NONE', $heading = 'NONE', $text = 'NONE', $category = 'NONE', $date = 'NONE';
+    private string $email, $heading, $text, $category, $date;
 
     public function __construct($bulletinInfo)
     {
@@ -20,14 +20,14 @@ class Bulletin
     {
         return <<<HEREDOC
                     <tr>
-                        <td rowspan="3">{$this->date}</td>
-                        <th bgcolor="#deb887">Автор: {$this->email}</th>
+                        <td rowspan="3">$this->date</td>
+                        <th bgcolor="#deb887">Автор: $this->email</th>
                     </tr>
                     <tr>
-                        <th>{$this->heading}</th>
+                        <th>$this->heading</th>
                     </tr>
                     <tr>
-                        <td>{$this->text}</td>
+                        <td>$this->text</td>
                     </tr>
                     HEREDOC;
     }

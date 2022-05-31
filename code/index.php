@@ -1,6 +1,10 @@
 <?php
-include '../Controllers/bulletinController.php';
 session_start();
+require_once('Model/Render.php');
+
+use Render\Render;
+
+$render = new Render();
 
 ?>
 <!doctype html>
@@ -13,11 +17,13 @@ session_start();
     <title>Document</title>
 </head>
 <body>
-<form method="post">
+<form method="POST">
     <label>
+        Email:<br>
+        <input type="email" name="email" value="" size="30" maxlength="30" required><br>
         Category:<br>
         <select name="categoryNew" required>
-            <?php echo getCategoriesSelector()?>
+            <?php echo html_entity_decode($render->selector()) ?>
         </select><br>
         Heading:<br>
         <input type="text" name="headingNew" value="" size="30" maxlength="30" required><br>
@@ -27,11 +33,11 @@ session_start();
         <input type="submit" name="PostNew" value="POST"> <input type="reset" value="ERASE"><br><br>
     </label>
 </form>
-<form method="post">
+<form method="GET">
     Choose category to show:
     <label>
         <select name="categorySelect" required>
-            <?php echo getCategoriesSelector()?>
+            <?php echo html_entity_decode($render->selector()) ?>
         </select>
     </label><br>
     <input type="submit" name="start" value="SHOW">
@@ -39,13 +45,6 @@ session_start();
 </body>
 </html>
 <?php
-if (isset($_POST['start']))
-    categoryToShowSet();
-if (isset($_POST['PostNew']))
-    postNewBulletin();
+$render->handler();
 ?>
-<table border="1" width="60%">
-    <tbody>
-<?php showBoard();?>
-    </tbody>
-</table>
+

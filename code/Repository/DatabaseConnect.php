@@ -2,28 +2,26 @@
 
 namespace Repository;
 
-use Configure\generalConfig;
+use Config\Config;
 use mysqli;
 
 class Database
 {
     private static mysqli $database;
 
-    public function __construct()
+    public function __construct(Config $config)
     {
-        $this -> connectToDataBase(new generalConfig());
+        $this->connectToDataBase($config);
     }
 
-    public static function connectToDatabase(generalConfig $config): mysqli
+    public static function connectToDatabase(Config $config): mysqli
     {
-        $settings = $config->getDbConnect();
         self::$database = mysqli_init();
-        $dbConnect = self::$database->real_connect($settings->getHost(), $settings->getUsername(),
-            $settings->getPassword(), $settings->getDatabaseName());
+        $dbConnect = self::$database->real_connect($config->getHost(), $config->getUsername(),
+            $config->getPassword(), $config->getDatabaseName());
         $dbChangeEncoding = mysqli_set_charset(self::$database, "utf8mb4");
-        $error = mysqli_errno(self::$database). ":" .mysqli_error(self::$database);
-        if(!$dbConnect || !$dbChangeEncoding)
-        {
+        $error = mysqli_errno(self::$database) . ":" . mysqli_error(self::$database);
+        if (!$dbConnect || !$dbChangeEncoding) {
             trigger_error($error);
         }
         return self::$database;

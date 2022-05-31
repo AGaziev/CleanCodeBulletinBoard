@@ -1,14 +1,20 @@
 <?php
 
-namespace Configure;
+namespace Config;
 
-class DatabaseSettings
+class DatabaseSettingsRepository
 {
     private string $host;
     private string $username;
     private string $password;
     private string $database_name;
 
+    /**
+     * @param string $host
+     * @param string $username
+     * @param string $password
+     * @param string $database_name
+     */
     public function __construct(string $host, string $username, string $password, string $database_name)
     {
         $this->host = $host;
